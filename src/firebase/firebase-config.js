@@ -1,6 +1,6 @@
 // FireBase initialization
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
+import { getDatabase, get, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {

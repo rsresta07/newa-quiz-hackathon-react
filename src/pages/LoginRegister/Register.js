@@ -1,32 +1,48 @@
-import React from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/firebase-config";
 
 const SignUp = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [repassword, setRepassword] = useState("");
+    const navigate = useNavigate();
+
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        if (password !== repassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            alert("Sign up successful!");
+            navigate("/login");
+        } catch (error) {
+            console.error("Error signing up:", error.message);
+            alert(error.message);
+        }
+    };
+
     return (
         <div className="bg-white rounded-lg py-5">
             <div className="container flex flex-col mx-auto bg-white rounded-lg pt-12 my-5">
                 <div className="flex justify-center w-full h-full my-auto xl:gap-14 lg:justify-normal md:gap-5 draggable">
                     <div className="flex items-center justify-center w-full lg:p-12">
                         <div className="flex items-center xl:p-10">
-                            <form className="flex flex-col w-full h-full pb-6 text-center bg-white rounded-3xl">
+                            <form
+                                className="flex flex-col w-full h-full pb-6 text-center bg-white rounded-3xl"
+                                onSubmit={handleSignUp}
+                            >
                                 <h3 className="mb-3 text-4xl font-extrabold text-dark-grey-900">
                                     Sign Up
                                 </h3>
                                 <p className="mb-4 text-grey-700">
-                                    Enter your username, email and password
+                                    Enter your email and password
                                 </p>
 
-                                <label
-                                    htmlFor="username"
-                                    className="mb-2 text-sm text-start text-grey-900"
-                                >
-                                    Username*
-                                </label>
-                                <input
-                                    id="username"
-                                    type="text"
-                                    placeholder="Enter a username"
-                                    className="flex items-center w-full px-5 py-3 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl"
-                                />
                                 <label
                                     htmlFor="email"
                                     className="mb-2 text-sm text-start text-grey-900"
@@ -36,9 +52,12 @@ const SignUp = () => {
                                 <input
                                     id="email"
                                     type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder="mail@loopple.com"
                                     className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-grey-400 mb-7 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl"
                                 />
+
                                 <label
                                     htmlFor="password"
                                     className="mb-2 text-sm text-start text-grey-900"
@@ -48,9 +67,14 @@ const SignUp = () => {
                                 <input
                                     id="password"
                                     type="password"
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                     placeholder="Enter a password"
                                     className="flex items-center w-full px-5 py-4 mb-5 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl"
                                 />
+
                                 <label
                                     htmlFor="confirm-password"
                                     className="mb-2 text-sm text-start text-grey-900"
@@ -60,10 +84,20 @@ const SignUp = () => {
                                 <input
                                     id="confirm-password"
                                     type="password"
-                                    placeholder="Enter a password again"
-                                    className="flex items-center w-full px-5 py-5 mb-0 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl"
+                                    value={repassword}
+                                    onChange={(e) =>
+                                        setRepassword(e.target.value)
+                                    }
+                                    placeholder="Enter the password again"
+                                    className="flex items-center w-full px-5 py-4 mb-7 mr-2 text-sm font-medium outline-none focus:bg-grey-400 placeholder:text-grey-700 bg-grey-200 text-dark-grey-900 rounded-2xl"
                                 />
-                                <div className="flex flex-row justify-between mb-8"></div>
+
+                                <button
+                                    type="submit"
+                                    className="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white transition duration-300 md:w-96 rounded-2xl hover:bg-red-500 focus:ring-4 focus:ring-purple-blue-100 bg-black"
+                                >
+                                    Sign Up
+                                </button>
 
                                 <div className="flex items-center mb-3">
                                     <hr className="h-0 border-b border-solid border-grey-500 grow" />
@@ -71,9 +105,9 @@ const SignUp = () => {
                                     <hr className="h-0 border-b border-solid border-grey-500 grow" />
                                 </div>
 
-                                <link
+                                <button
+                                    type="button"
                                     className="flex items-center justify-center w-full py-4 mb-6 text-sm font-medium transition duration-300 rounded-2xl text-grey-900 bg-grey-300 hover:bg-grey-400 focus:ring-4 focus:ring-grey-300"
-                                    href="#"
                                 >
                                     <img
                                         className="h-5 mr-2"
@@ -81,19 +115,14 @@ const SignUp = () => {
                                         alt="Google Logo"
                                     />
                                     Sign in with Google
-                                </link>
-                                <button className="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white transition duration-300 md:w-96 rounded-2xl hover:bg-red-500 focus:ring-4 focus:ring-purple-blue-100 bg-black">
-                                    Sign In
                                 </button>
-                                <p className="text-sm leading-relaxed text-grey-900">
-                                    Not registered yet?{" "}
-                                    <link
-                                        href="#"
-                                        className="font-bold text-grey-700"
-                                    >
-                                        Create an Account
-                                    </link>
-                                </p>
+
+                                <Link
+                                    to="/login"
+                                    className="text-sm font-medium text-blue-500 hover:underline"
+                                >
+                                    Already have an account? Log In
+                                </Link>
                             </form>
                         </div>
                     </div>
