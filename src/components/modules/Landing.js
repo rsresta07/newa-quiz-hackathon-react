@@ -15,6 +15,9 @@ const LandingPage = () => {
                 <section className="">
                     <Categories />
                 </section>
+                <section>
+                    <h3 className="bg-gray-200 p-4 h-[200px]">Ads</h3>
+                </section>
             </main>
         </div>
     );

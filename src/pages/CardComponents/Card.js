@@ -11,7 +11,8 @@ const Card = ({ title, image, description }) => {
             <div className="text-center">
                 <h3 className="text-2xl font-semibold mb-2">{title}</h3>
                 <img
-                    src={image}
+                    // src={image}
+                    src="/icon/logo.png"
                     alt={title}
                     className="mx-auto mb-3 h-[12rem] object-contain"
                 />

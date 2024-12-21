@@ -40,24 +40,34 @@ const Lessons = () => {
     };
 
     if (loading) {
-        return <div className="text-center mt-10">Loading lessons...</div>;
+        return (
+            <div className="text-center mt-10 text-gray-700">
+                Loading lessons...
+            </div>
+        );
     }
 
     if (!lessons.length) {
-        return <div className="text-center mt-10">No lessons available.</div>;
+        return (
+            <div className="text-center mt-10 text-gray-700">
+                No lessons available.
+            </div>
+        );
     }
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-100">
-            <div className="bg-gray-300 p-8 rounded-lg w-[500px]">
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            <div className="bg-white p-6 rounded-lg shadow-md w-96">
                 <div className="text-center">
-                    <h2 className="text-2xl font-bold mb-6">Lessons</h2>
-                    <ul className="space-y-4 items-center">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                        Lessons
+                    </h2>
+                    <ul className="space-y-4">
                         {lessons.map((lesson) => (
                             <li key={lesson.id}>
                                 <button
                                     onClick={() => handleLessonClick(lesson.id)}
-                                    className="block text-lg font-medium text-black bg-white py-3 px-4 rounded-md hover:bg-gray-600 hover:text-white transition duration-300 text-center w-48 h-14"
+                                    className="block text-lg text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-md w-full"
                                 >
                                     {lesson.title}
                                 </button>

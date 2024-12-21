@@ -13,8 +13,12 @@ const SignIn = () => {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            // alert("Sign in successful!");
-            navigate("/");
+            // Check if the email and password match the admin credentials
+            if (email === "admin@demo.com" && password === "123456789") {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
         } catch (error) {
             setError(error.message);
         }

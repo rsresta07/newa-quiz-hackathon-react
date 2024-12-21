@@ -13,10 +13,10 @@ import LessonDetails from "./pages/Lesson/LessonDetails";
 import QuizLoader from "./pages/QuizLoader";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import AdminCategories from "./components/AdminDashboard/Categories";
-import AdminLessonList from "./components/AdminDashboard/LessonList"; 
+import AdminLessonList from "./components/AdminDashboard/LessonList";
 import Facts from "./components/AdminDashboard/Facts";
 import AdminEditCategory from "./components/AdminDashboard/EditCategory";
-import AdminAddCategory from "./components/AdminDashboard/AddCategory"; 
+import AdminAddCategory from "./components/AdminDashboard/AddCategory";
 
 function App() {
     const location = useLocation();
@@ -30,7 +30,8 @@ function App() {
         "/admin/lessons",
         "/admin/facts",
         "/admin/editCategory",
-        "/admin/addCategory",];
+        "/admin/addCategory",
+    ];
 
     const showHeaderFooter = !hideHeaderFooterRoutes.includes(
         location.pathname
@@ -63,23 +64,26 @@ function App() {
 
                 {/* Admin Routes */}
                 {/* {isAdmin && ( */}
-                    <>
-                        <Route path="/admin" element={<AdminDashboard />} />
-                        <Route
-                            path="/admin/categories"
-                            element={<AdminCategories />}
-                        />
-                        <Route path="/admin/lessons" element={<AdminLessonList />} />
-                        <Route path="/admin/facts" element={<Facts />} />
-                        <Route
-                            path="/admin/editCategory"
-                            element={<AdminEditCategory />}
-                        />
-                        <Route
-                            path="/admin/addLesson"
-                            element={<AdminAddCategory />}
-                        />
-                    </>
+                <>
+                    <Route path="/admin" element={<AdminDashboard />} />
+                    <Route
+                        path="/admin/categories"
+                        element={<AdminCategories />}
+                    />
+                    <Route
+                        path="/admin/lessons"
+                        element={<AdminLessonList />}
+                    />
+                    <Route path="/admin/facts" element={<Facts />} />
+                    <Route
+                        path="/admin/editCategory"
+                        element={<AdminEditCategory />}
+                    />
+                    <Route
+                        path="/admin/addLesson"
+                        element={<AdminAddCategory />}
+                    />
+                </>
                 {/* )} */}
             </Routes>
 
