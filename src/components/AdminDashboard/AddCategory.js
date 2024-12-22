@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ref, push } from "firebase/database";
+import { db } from "../../firebase/firebase-config"; // Adjust the path based on your setup
 import Sidebar from "./Sidebar"; // Assuming Sidebar is a separate component
 
 const AddCategory = () => {
@@ -6,10 +8,28 @@ const AddCategory = () => {
     const [categoryName, setCategoryName] = useState("");
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logic to handle adding the category
-        console.log("New Category Added: ", categoryName);
+        if (categoryName.trim() === "") {
+            alert("Category name cannot be empty!");
+            return;
+        }
+
+        try {
+            // Add the new category to Firebase Realtime Database
+            const categoriesRef = ref(db, "categories");
+            const newCategoryRef = push(categoriesRef);
+            await newCategoryRef.set({
+                name: categoryName,
+                lessons: {}, // Initialize with an empty lessons object
+            });
+
+            alert("Category added successfully!");
+            setCategoryName(""); // Clear the input field
+        } catch (error) {
+            console.error("Error adding category:", error);
+            alert("Failed to add category. Please try again.");
+        }
     };
 
     return (

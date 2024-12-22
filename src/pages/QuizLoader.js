@@ -12,6 +12,7 @@ const QuizLoader = () => {
     const [userAnswers, setUserAnswers] = useState({}); // Store user answers
     const [result, setResult] = useState(null); // Store the result after submission
     const [isModalOpen, setIsModalOpen] = useState(false); // For modal control
+    const [detailedResults, setDetailedResults] = useState([]);
 
     useEffect(() => {
         const fetchQuizzes = async () => {
@@ -49,16 +50,28 @@ const QuizLoader = () => {
     const handleSubmit = () => {
         let score = 0;
         let total = 0;
+        const details = [];
 
         Object.entries(quizzes).forEach(([quizId, quiz]) => {
             total++;
-            if (userAnswers[quizId] === quiz.correctAnswer.toString()) {
+            const userAnswer = userAnswers[quizId];
+            const isCorrect = userAnswer === quiz.correctAnswer.toString();
+
+            if (isCorrect) {
                 score++;
             }
+
+            details.push({
+                question: quiz.question,
+                correctAnswer: quiz.options[quiz.correctAnswer],
+                userAnswer: quiz.options[userAnswer] || "No answer selected",
+                isCorrect,
+            });
         });
 
+        setDetailedResults(details);
         setResult({ score, total });
-        setIsModalOpen(true); // Open modal after submission
+        setIsModalOpen(true);
     };
 
     const handleCloseModal = () => {
@@ -127,7 +140,7 @@ const QuizLoader = () => {
 
             <div className="my-6 text-center">
                 <button
-                    className="bg-blue-950 text-white px-4 py-2 text-2xl rounded hover:bg-gray-800"
+                    className="bg-green-600 text-white px-4 py-2 text-2xl rounded hover:bg-green-800"
                     onClick={handleSubmit}
                 >
                     Submit
@@ -139,7 +152,7 @@ const QuizLoader = () => {
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)} // Close the modal when clicked outside
                 contentLabel="Quiz Result"
-                className="mt-28 h-[200px] bg-white p-6 rounded-lg shadow-lg"
+                className="mt-28 h-[auto] bg-white p-6 rounded-lg shadow-lg"
                 overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50" // Semi-transparent dark background
             >
                 <div className="text-center">
@@ -154,16 +167,44 @@ const QuizLoader = () => {
                                 )}
                                 % Correct
                             </p>
-                            <div className="flex justify-center space-x-4">
+
+                            {/* Detailed results */}
+                            <div className="text-left">
+                                {detailedResults.map((detail, index) => (
+                                    <div
+                                        key={index}
+                                        className="mb-4 border-b pb-2"
+                                    >
+                                        <h3 className="text-2xl font-semibold pt-2">
+                                            {index + 1}. {detail.question}
+                                        </h3>
+                                        <p
+                                            className={`text-xl pt-2 ${
+                                                detail.isCorrect
+                                                    ? "text-green-600"
+                                                    : "text-red-600"
+                                            }`}
+                                        >
+                                            Your Answer: {detail.userAnswer}
+                                        </p>
+                                        <p className="text-xl text-gray-600 pt-2">
+                                            Correct Answer:{" "}
+                                            {detail.correctAnswer}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="flex justify-center space-x-4 mt-6">
                                 <button
                                     onClick={handleCloseModal}
-                                    className="bg-blue-950 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                    className="bg-red-700 text-white px-6 py-2 rounded-lg hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 >
                                     Close
                                 </button>
                                 <button
                                     onClick={handleTryAgain}
-                                    className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+                                    className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-400"
                                 >
                                     Try Again
                                 </button>

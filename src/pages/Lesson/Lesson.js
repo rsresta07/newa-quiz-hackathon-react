@@ -56,10 +56,10 @@ const Lessons = () => {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="bg-white p-6 rounded-lg shadow-md w-96">
+        <div className=" min-h-screen flex bg-gray-100 pt-32 justify-center items-center">
+            <div className="bg-white p-6 rounded-lg shadow-md w-[40rem] h-[auto] ">
                 <div className="text-center">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                    <h2 className="text-3xl font-bold text-gray-800 mb-6">
                         Lessons
                     </h2>
                     <ul className="space-y-4">
@@ -67,7 +67,7 @@ const Lessons = () => {
                             <li key={lesson.id}>
                                 <button
                                     onClick={() => handleLessonClick(lesson.id)}
-                                    className="block text-lg text-white bg-blue-500 hover:bg-blue-600 py-2 px-4 rounded-md w-full"
+                                    className="block text-lg text-white bg-green-600 hover:bg-green-800 py-4 px-6 rounded-md w-full"
                                 >
                                     {lesson.title}
                                 </button>

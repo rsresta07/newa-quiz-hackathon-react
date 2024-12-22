@@ -59,18 +59,18 @@ const LessonDetails = () => {
 
     return (
         <div className="font-sans p-5 mt-28 mb-12 h-[auto]">
-            <h1 className="text-center text-2xl font-bold mb-5">
+            <h1 className="text-center text-4xl font-bold mb-5">
                 Lesson Details
             </h1>
 
             <div className="w-full h-auto max-w-6xl border border-gray-300 p-5 rounded-lg mx-auto">
                 <div className="mb-6">
-                    <h2 className="text-2xl font-semibold mb-4 px-5 text-left">
+                    <h2 className="text-3xl font-semibold mb-4 px-5 text-left">
                         Content:
                     </h2>
                     <div className="px-5">
                         {Object.entries(lessonContent).map(([key, value]) => (
-                            <p key={key} className="mb-2 text-left text-lg">
+                            <p key={key} className="mb-2 text-left text-xl">
                                 {value}
                             </p>
                         ))}
@@ -78,12 +78,14 @@ const LessonDetails = () => {
                 </div>
                 {quizzes && (
                     <div className="mt-6">
-                        <h2 className="text-2xl font-semibold mb-4 text-left px-5">
+                        {/* <h2 className="text-3xl font-semibold mb-4 text-left px-5">
                             Quizzes:
-                        </h2>
+                        </h2> */}
                         <div className="text-left px-5">
-                            <button className="bg-blue-950 text-white px-4 py-2 rounded hover:bg-blue-700">
-                                <Link to={`/quiz/${lessonId}`}>Take Quiz</Link>
+                            <button className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-800">
+                                <Link to={`/quiz/${lessonId}`}>
+                                    <label className="text-lg">Take Quiz</label>
+                                </Link>
                             </button>
                         </div>
                     </div>

@@ -15,8 +15,23 @@ const LandingPage = () => {
                 <section className="">
                     <Categories />
                 </section>
-                <section>
-                    <h3 className="bg-gray-200 p-4 h-[200px]">Ads</h3>
+                <section className="flex flex-row justify-center">
+                    <section className="w-full pl-16">
+                        {/* <h3 className="bg-gray-200 p-4 h-[200px]">Ads</h3> */}
+                        <img
+                            src="/icon/ad.png"
+                            alt="ads"
+                            className="object-fill"
+                        />
+                    </section>
+                    <section className="w-full">
+                        {/* <h3 className="bg-gray-200 p-4 h-[200px]">Ads</h3> */}
+                        <img
+                            src="/icon/ad.png"
+                            alt="ads"
+                            className="object-fill"
+                        />
+                    </section>
                 </section>
             </main>
         </div>

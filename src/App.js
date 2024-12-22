@@ -37,56 +37,58 @@ function App() {
         location.pathname
     );
 
-    // Sample admin check (you may replace this with actual authentication logic)
-    const isAdmin = true; // Replace with actual admin check
-
     return (
-        <div className="App">
+        <div className="flex flex-col min-h-screen">
+            {/* Conditionally Render Header */}
             {showHeaderFooter && <Header />}
 
-            <Routes>
-                {/* Public Routes */}
-                <Route path="/" element={<Landing />} />
-                <Route path="/login" element={<SignIn />} />
-                <Route path="/register" element={<SignUp />} />
-                <Route path="/about-us" element={<AboutUs />} />
+            <div className="flex-grow">
+                <Routes>
+                    {/* Public Routes */}
+                    <Route path="/" element={<Landing />} />
+                    <Route path="/login" element={<SignIn />} />
+                    <Route path="/register" element={<SignUp />} />
+                    <Route path="/about-us" element={<AboutUs />} />
 
-                {/* Categories and Lessons */}
-                <Route path="/categories" element={<Categories />} />
-                <Route path="/lesson" element={<Lesson />} />
-                <Route path="/lesson/:lessonId" element={<LessonDetails />} />
-
-                {/* Quiz */}
-                <Route path="/quiz/:lessonId" element={<QuizLoader />} />
-
-                {/* Profile */}
-                <Route path="/profile" element={<Profile />} />
-
-                {/* Admin Routes */}
-                {/* {isAdmin && ( */}
-                <>
-                    <Route path="/admin" element={<AdminDashboard />} />
+                    {/* Categories and Lessons */}
+                    <Route path="/categories" element={<Categories />} />
+                    <Route path="/lesson" element={<Lesson />} />
                     <Route
-                        path="/admin/categories"
-                        element={<AdminCategories />}
+                        path="/lesson/:lessonId"
+                        element={<LessonDetails />}
                     />
-                    <Route
-                        path="/admin/lessons"
-                        element={<AdminLessonList />}
-                    />
-                    <Route path="/admin/facts" element={<Facts />} />
-                    <Route
-                        path="/admin/editCategory"
-                        element={<AdminEditCategory />}
-                    />
-                    <Route
-                        path="/admin/addCategory"
-                        element={<AdminAddCategory />}
-                    />
-                </>
-                {/* )} */}
-            </Routes>
 
+                    {/* Quiz */}
+                    <Route path="/quiz/:lessonId" element={<QuizLoader />} />
+
+                    {/* Profile */}
+                    <Route path="/profile" element={<Profile />} />
+
+                    {/* Admin Routes */}
+                    <>
+                        <Route path="/admin" element={<AdminDashboard />} />
+                        <Route
+                            path="/admin/categories"
+                            element={<AdminCategories />}
+                        />
+                        <Route
+                            path="/admin/lessons"
+                            element={<AdminLessonList />}
+                        />
+                        <Route path="/admin/facts" element={<Facts />} />
+                        <Route
+                            path="/admin/editCategory"
+                            element={<AdminEditCategory />}
+                        />
+                        <Route
+                            path="/admin/addCategory"
+                            element={<AdminAddCategory />}
+                        />
+                    </>
+                </Routes>
+            </div>
+
+            {/* Conditionally Render Footer */}
             {showHeaderFooter && <Footer />}
         </div>
     );

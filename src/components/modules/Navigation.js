@@ -21,12 +21,12 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-10 h-[75px]">
+        <nav className="fixed top-0 left-0 right-0 bg-red-700 shadow-md z-10 h-[75px]">
             <section className="flex justify-between items-center m-4 px-4">
                 <div className="flex flex-row items-center gap-6">
-                    <img src="/icon/logo.png" className="h-[3rem]" />
+                    <img src="/icon/logo-white.png" className="h-[3rem]" />
                 </div>
-                <div>
+                <div className="text-white">
                     <a href="/" className="px-2 text-xl">
                         Home
                     </a>
