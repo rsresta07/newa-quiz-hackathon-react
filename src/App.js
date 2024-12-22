@@ -80,7 +80,7 @@ function App() {
                         element={<AdminEditCategory />}
                     />
                     <Route
-                        path="/admin/addLesson"
+                        path="/admin/addCategory"
                         element={<AdminAddCategory />}
                     />
                 </>

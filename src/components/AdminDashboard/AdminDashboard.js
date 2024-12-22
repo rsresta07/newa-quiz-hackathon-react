@@ -1,7 +1,71 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { ref, get } from "firebase/database";
+import { db } from "../../firebase/firebase-config";
 import Sidebar from "./Sidebar";
 
 const AdminDashboard = () => {
+    const [categories, setCategories] = useState([]);
+    const [lessons, setLessons] = useState([]);
+    const [quizzes, setQuizzes] = useState([]);
+    const [facts] = useState([
+        "Fact 1: Newa culture is rich and diverse.",
+        "Fact 2: Nepal Bhasa has many dialects.",
+        "Fact 3: Traditional Newa greetings have deep meanings.",
+    ]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const categoriesRef = ref(db, "categories");
+                const snapshot = await get(categoriesRef);
+
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+
+                    // Extract categories
+                    const allCategories = Object.keys(data).map((key) => ({
+                        name: data[key].name,
+                    }));
+                    setCategories(allCategories.slice(0, 3)); // Limit to 3 categories
+
+                    // Extract lessons
+                    const allLessons = [];
+                    Object.keys(data).forEach((categoryKey) => {
+                        const lessonsObj = data[categoryKey]?.lessons || {};
+                        Object.keys(lessonsObj).forEach((lessonKey) => {
+                            allLessons.push({
+                                title: lessonsObj[lessonKey].title,
+                            });
+                        });
+                    });
+                    setLessons(allLessons.slice(0, 3)); // Limit to 3 lessons
+
+                    // Extract quizzes
+                    const allQuizzes = [];
+                    Object.keys(data).forEach((categoryKey) => {
+                        const lessonsObj = data[categoryKey]?.lessons || {};
+                        Object.keys(lessonsObj).forEach((lessonKey) => {
+                            const quizzesObj =
+                                lessonsObj[lessonKey]?.quizzes || {};
+                            Object.keys(quizzesObj).forEach((quizKey) => {
+                                allQuizzes.push({
+                                    question: quizzesObj[quizKey].question,
+                                });
+                            });
+                        });
+                    });
+                    setQuizzes(allQuizzes.slice(0, 3)); // Limit to 3 quizzes
+                } else {
+                    console.error("No data available.");
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className="bg-white text-gray-900">
             {/* Sidebar */}
@@ -18,7 +82,7 @@ const AdminDashboard = () => {
                     />
                 </div>
 
-                {/* Recent Lists for Categories, Lessons, Facts, and Quizzes */}
+                {/* Recent Categories, Lessons, Facts, and Quizzes */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                     {/* Category List */}
                     <div>
@@ -26,15 +90,14 @@ const AdminDashboard = () => {
                             Recent Categories
                         </h3>
                         <ul className="space-y-2">
-                            <li className="bg-gray-100 p-4 rounded">
-                                Category 1
-                            </li>
-                            <li className="bg-gray-100 p-4 rounded">
-                                Category 2
-                            </li>
-                            <li className="bg-gray-100 p-4 rounded">
-                                Category 3
-                            </li>
+                            {categories.map((category, index) => (
+                                <li
+                                    key={index}
+                                    className="bg-gray-100 p-4 rounded"
+                                >
+                                    {category.name}
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
@@ -44,15 +107,14 @@ const AdminDashboard = () => {
                             Recent Lessons
                         </h3>
                         <ul className="space-y-2">
-                            <li className="bg-gray-100 p-4 rounded">
-                                Lesson 1
-                            </li>
-                            <li className="bg-gray-100 p-4 rounded">
-                                Lesson 2
-                            </li>
-                            <li className="bg-gray-100 p-4 rounded">
-                                Lesson 3
-                            </li>
+                            {lessons.map((lesson, index) => (
+                                <li
+                                    key={index}
+                                    className="bg-gray-100 p-4 rounded"
+                                >
+                                    {lesson.title}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
@@ -65,9 +127,14 @@ const AdminDashboard = () => {
                             Recent Facts
                         </h3>
                         <ul className="space-y-2">
-                            <li className="bg-gray-100 p-4 rounded">Fact 1</li>
-                            <li className="bg-gray-100 p-4 rounded">Fact 2</li>
-                            <li className="bg-gray-100 p-4 rounded">Fact 3</li>
+                            {facts.map((fact, index) => (
+                                <li
+                                    key={index}
+                                    className="bg-gray-100 p-4 rounded"
+                                >
+                                    {fact}
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
@@ -77,9 +144,14 @@ const AdminDashboard = () => {
                             Recent Quizzes
                         </h3>
                         <ul className="space-y-2">
-                            <li className="bg-gray-100 p-4 rounded">Quiz 1</li>
-                            <li className="bg-gray-100 p-4 rounded">Quiz 2</li>
-                            <li className="bg-gray-100 p-4 rounded">Quiz 3</li>
+                            {quizzes.map((quiz, index) => (
+                                <li
+                                    key={index}
+                                    className="bg-gray-100 p-4 rounded"
+                                >
+                                    {quiz.question}
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
