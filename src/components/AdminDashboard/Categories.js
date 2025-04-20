@@ -63,7 +63,7 @@ const Categories = () => {
                         </thead>
                         <tbody>
                             {categories.map((category, index) => (
-                                <tr key={category.id} className="border-t">
+                                <tr key={category.id} className="border-t text-center">
                                     <td className="p-3">{index + 1}</td>
                                     <td className="p-3">{category.name}</td>
                                     <td className="p-3">

@@ -76,9 +76,9 @@ const AdminDashboard = () => {
                 {/* Dashboard Header */}
                 <div className="logo-container text-center mb-8">
                     <img
-                        src=""
+                        src="/icon/logo.png"
                         alt="Newa Quiz Admin Logo"
-                        className="max-w-full h-auto w-72 mx-auto"
+                        className="w-[9rem] h-auto w-72 mx-auto"
                     />
                 </div>
 

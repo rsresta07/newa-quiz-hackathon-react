@@ -152,16 +152,16 @@ const QuizLoader = () => {
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)} // Close the modal when clicked outside
                 contentLabel="Quiz Result"
-                className="mt-28 h-[auto] bg-white p-6 rounded-lg shadow-lg"
+                className="mt-14 bg-white p-6 rounded-lg shadow-lg"
                 overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50" // Semi-transparent dark background
             >
                 <div className="text-center">
                     {result && (
                         <>
-                            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                            <h2 className="text-lg font-semibold text-gray-800 mb-1">
                                 Your Score: {result.score}/{result.total}
                             </h2>
-                            <p className="text-xl text-gray-600 mb-6">
+                            <p className="text-md text-gray-600 mb-4">
                                 {((result.score / result.total) * 100).toFixed(
                                     2
                                 )}
@@ -169,25 +169,24 @@ const QuizLoader = () => {
                             </p>
 
                             {/* Detailed results */}
-                            <div className="text-left">
+                            <div className="text-left px-36">
                                 {detailedResults.map((detail, index) => (
                                     <div
                                         key={index}
                                         className="mb-4 border-b pb-2"
                                     >
-                                        <h3 className="text-2xl font-semibold pt-2">
+                                        <h3 className="text-lg font-semibold pt-2">
                                             {index + 1}. {detail.question}
                                         </h3>
                                         <p
-                                            className={`text-xl pt-2 ${
-                                                detail.isCorrect
-                                                    ? "text-green-600"
-                                                    : "text-red-600"
-                                            }`}
+                                            className={`text-md pt-2 ${detail.isCorrect
+                                                ? "text-green-600"
+                                                : "text-red-600"
+                                                }`}
                                         >
                                             Your Answer: {detail.userAnswer}
                                         </p>
-                                        <p className="text-xl text-gray-600 pt-2">
+                                        <p className="text-md text-gray-600 pt-2">
                                             Correct Answer:{" "}
                                             {detail.correctAnswer}
                                         </p>

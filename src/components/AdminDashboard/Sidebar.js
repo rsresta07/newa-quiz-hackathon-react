@@ -6,11 +6,11 @@ const Sidebar = () => {
         <div className="sidebar fixed top-0 left-0 w-64 h-screen bg-[#5c0505] text-white py-8 px-4">
             {" "}
             {/* Marron Red color */}
-            <div className="logo-container text-center mb-8">
+            <div className="logo-container mb-8">
                 <img
-                    src=""
+                    src="/icon/logo-white.png"
                     alt="Newa Quiz Admin Logo"
-                    className="max-w-full h-auto w-72 mx-auto"
+                    className="w-[5rem] h-auto w-72 mx-auto"
                 />
             </div>
             <Link

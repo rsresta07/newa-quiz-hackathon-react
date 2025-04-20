@@ -71,7 +71,7 @@ const LessonList = () => {
                         <tbody>
                             {lessons.length > 0 ? (
                                 lessons.map((lesson, index) => (
-                                    <tr className="border-t" key={lesson.id}>
+                                    <tr className="border-t text-center" key={lesson.id}>
                                         <td className="p-3">{index + 1}</td>
                                         <td className="p-3">{lesson.name}</td>
                                         <td className="p-3">
